@@ -33,4 +33,4 @@ script = SmtLibParser().get_script_fname(sys.argv[1])
 formula = script.get_last_formula()
 f = get_expr(str(formula))
 
-prop.is_prop_sat(formula, f, atom_map)
+print("SAT" if prop.is_sat(formula, f, atom_map) else "UNSAT")
