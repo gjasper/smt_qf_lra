@@ -1,7 +1,5 @@
 from pysmt.rewritings import CNFizer
-from pysmt.shortcuts import get_env
 from pysat.solvers import Solver
-from pysmt.logics import QF_LRA
 from pysat.formula import CNF
 
 import theory
@@ -9,13 +7,17 @@ import util
 
 def is_sat(formula):
 
+    print(formula)
+
     atom_map = {}
 
     conv = CNFizer()
-    cnf_formula = conv.convert_as_formula(formula)
-    string_formula = cnf_formula.serialize()
+    formula = conv.convert_as_formula(formula)
+    string_formula = formula.serialize()
 
-    for atom in cnf_formula.get_atoms():
+    print(string_formula)
+
+    for atom in formula.get_atoms():
         s_atom = str(atom)
         atom_map[s_atom] = len(atom_map) + 1
         string_formula = string_formula.replace(s_atom, str(atom_map[s_atom]))
@@ -30,11 +32,9 @@ def is_sat(formula):
                                     .replace("& ((", "& (") \
                                     .replace("! ", "-")
 
-    get_env().factory.add_generic_solver("cvc5", \
-                                     "/opt/cvc5-Linux-static-1.2.0/bin/cvc5", \
-                                    [QF_LRA])
-
     string_formula = util.trim(string_formula)
+
+    print(string_formula)
 
     clauses = []
     for s_clause in string_formula.split(' & '):
