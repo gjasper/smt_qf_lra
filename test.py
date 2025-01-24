@@ -1,10 +1,6 @@
-from pysmt.rewritings import CNFizer
-from pysmt.shortcuts import get_env
-from pysat.solvers import Solver
-from pysmt.logics import QF_LRA
-from pysat.formula import CNF
-
 from pysmt.smtlib.parser import SmtLibParser
+from pysmt.shortcuts import get_env
+from pysmt.logics import QF_LRA
 import prop
 
 def run(file_path):
