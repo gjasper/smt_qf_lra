@@ -4,6 +4,7 @@ from pysmt.logics import QF_LRA
 import prop
 
 def run(file_path):
+    print("running: {}".format(file_path))
     script = SmtLibParser().get_script_fname(file_path)
     formula = script.get_last_formula()
     return "sat" if prop.is_sat(formula) else "unsat"

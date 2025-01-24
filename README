@@ -1,0 +1,9 @@
+requirements: python3
+
+run "make" to setup the environment
+
+once the environment is set:
+
+    run "make test" to run a list of quick tests
+    run "source sourceme"
+        and then run "python3 run.tcl <file_name.smt2>"

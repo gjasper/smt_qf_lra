@@ -15,15 +15,15 @@ def test_samples():
                                     "/opt/cvc5-Linux-static-1.2.0/bin/cvc5", \
                                 [QF_LRA])
 
-    # assert run('QF_LRA_examples2/water_tank-node15243.smt2') == 'unsat'
-    # assert run('QF_LRA_examples2/water_tank-node17126.smt2') == 'unsat'
-    # assert run('QF_LRA_examples2/water_tank-node21443.smt2') == 'unsat'
-    # assert run('QF_LRA_examples2/water_tank-node23593.smt2') == 'unsat'
-    # assert run('QF_LRA_examples2/water_tank-node28604.smt2') == 'unsat'
-    # assert run('QF_LRA_examples2/water_tank-node28718.smt2') == 'unsat'
+    assert run('QF_LRA_examples2/water_tank-node15243.smt2') == 'unsat'
+    assert run('QF_LRA_examples2/water_tank-node17126.smt2') == 'unsat'
+    assert run('QF_LRA_examples2/water_tank-node21443.smt2') == 'unsat'
+    assert run('QF_LRA_examples2/water_tank-node23593.smt2') == 'unsat'
+    assert run('QF_LRA_examples2/water_tank-node28604.smt2') == 'unsat'
+    assert run('QF_LRA_examples2/water_tank-node28718.smt2') == 'unsat'
     # assert run('QF_LRA_examples2/windowreal-no_t_deadlock-1.smt2') == 'unsat'
     # assert run('QF_LRA_examples2/bottom-plate-mixer-chunk-0023.smt2') == 'unsat'
-    assert run('QF_LRA_examples2/clocksynchro_3clocks.worst_case_skew.base.smt2') == 'unsat'
+    # assert run('QF_LRA_examples2/clocksynchro_3clocks.worst_case_skew.base.smt2') == 'unsat'
     # assert run('QF_LRA_examples2/clocksynchro_4clocks.worst_case_skew.base.smt2') == 'unsat'
     # assert run('QF_LRA_examples2/clocksynchro_5clocks.worst_case_skew.base.smt2') == 'unsat'
     # assert run('QF_LRA_examples2/clocksynchro_6clocks.worst_case_skew.base.smt2') == 'unsat'

@@ -51,7 +51,7 @@ def is_sat(formula):
             if is_prop_abstraction_sat:
                 model = solver.get_model()
                 t_model = list(filter(lambda l: abs(l) in theory_literals, model))
-                print("prop assignment: {}".format(t_model))
+                # print("prop assignment: {}".format(t_model))
                 if theory.is_theory_sat(formula, atom_map, theory_atoms, model):
                     break
                 else:
