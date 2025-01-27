@@ -15,3 +15,4 @@ once the environment is set:
 
     run "source sourceme"
         and then run "python3 run.py <file_name.smt2>"
+            to run individual smt files
