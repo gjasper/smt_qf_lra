@@ -11,4 +11,4 @@ get_env().factory.add_generic_solver("cvc5", \
                                 "/opt/cvc5-Linux-static-1.2.0/bin/cvc5", \
                             [QF_LRA])
 
-print("SAT" if prop.is_sat(formula) else "UNSAT")
+print("sat" if prop.is_sat(formula) else "unsat")

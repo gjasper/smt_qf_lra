@@ -9,3 +9,7 @@ configure:
 test:
 	. venv/bin/activate; \
 	python3 -m pytest -s test.py
+
+benchmark:
+	@. venv/bin/activate; \
+	python3 measure.py

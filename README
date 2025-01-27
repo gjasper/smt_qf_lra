@@ -5,5 +5,8 @@ run "make" to setup the environment
 once the environment is set:
 
     run "make test" to run a list of quick tests
+
+    run "make benchmark" to produce a comparison between cvc5 and this implementation
+
     run "source sourceme"
-        and then run "python3 run.tcl <file_name.smt2>"
+        and then run "python3 run.py <file_name.smt2>"
