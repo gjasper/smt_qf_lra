@@ -8,7 +8,7 @@ def print_comparison(file_name) :
     start = time.time()
 
     cvc5_result = subprocess.run(
-        ['timeout', '60s', 'cvc5', file_name],
+        ['timeout', '5s', 'cvc5', file_name],
         capture_output = True,
         text = True
     )
@@ -19,7 +19,7 @@ def print_comparison(file_name) :
     start = time.time()
 
     my_result = subprocess.run(
-        ['timeout', '60s', 'python3', 'run.py', file_name],
+        ['timeout', '5s', 'python3', 'run.py', file_name],
         capture_output = True,
         text = True
     )

@@ -1,6 +1,8 @@
-requirements: python3
+requirements:
+    python3
+    a env variable named CVC5_BIN_PATH containing the path to a cvc5 runnable binary
 
-run "make" to setup the environment
+run "make" to install dependencies
 
 once the environment is set:
 

@@ -2,6 +2,7 @@ from pysmt.smtlib.parser import SmtLibParser
 from pysmt.shortcuts import get_env
 from pysmt.logics import QF_LRA
 import prop
+import os
 
 def run(file_path):
     print("running: {}".format(file_path))
@@ -11,8 +12,11 @@ def run(file_path):
 
 def test_samples():
 
+    if 'CVC5_BIN_PATH' not in os.environ:
+        raise Exception('CVC5_BIN_PATH envvar not defined')
+
     get_env().factory.add_generic_solver("cvc5", \
-                                    "/opt/cvc5-Linux-static-1.2.0/bin/cvc5", \
+                                    os.environ['CVC5_BIN_PATH'], \
                                 [QF_LRA])
 
     assert run('problems/QF_LRA_examples/Arthan1A-chunk-0015.smt2') == 'sat'
