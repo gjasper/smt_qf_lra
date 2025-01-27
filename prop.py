@@ -1,4 +1,4 @@
-from pysmt.rewritings import CNFizer
+from pysmt.rewritings import CNFizer, conjunctive_partition
 from pysat.formula import CNF
 
 import pysat.solvers
@@ -21,9 +21,9 @@ def trim(expr):
 
     return expr[1:len(expr) - 1]
 
-def is_theory_sat(formula, atom_map, theory_atoms, assignment):
+def get_ucore(formula, atom_map, theory_atoms, assignment):
 
-    with pysmt.shortcuts.Solver(name = "cvc5", logic = "QF_LRA") as s:
+    with pysmt.shortcuts.UnsatCoreSolver(name = "z3", logic = "QF_LRA") as s:
         assertion = {}
         for atom in formula.get_atoms():
             if str(atom) in theory_atoms:
@@ -32,7 +32,22 @@ def is_theory_sat(formula, atom_map, theory_atoms, assignment):
                 else:
                     assertion = assertion.And(pysmt.shortcuts.Not(atom)) if assertion else pysmt.shortcuts.Not(atom)
         s.add_assertion(assertion)
-        return s.solve()
+
+        is_tsat = s.solve()
+
+        if is_tsat:
+            return []
+        else:
+            conj = conjunctive_partition(assertion)
+            ucore = pysmt.shortcuts.get_unsat_core(conj)
+            p_ucore = []
+            for atom in ucore:
+                t_lit = atom.serialize()
+                t_var = trim(t_lit.replace('! ', '')) if '! ' in t_lit else t_lit
+                p_var = atom_map[t_var]
+                p_lit = (-1) * p_var if '! ' in t_lit else p_var
+                p_ucore.append(p_lit)
+            return p_ucore
 
 def is_sat(formula):
 
@@ -50,8 +65,8 @@ def is_sat(formula):
         string_formula = string_formula.replace(s_atom, str(atom_map[s_atom]))
 
     theory_atoms = [s_atom for s_atom in atom_map if 'FV' not in s_atom]
-    theory_literals = [atom_map[s_atom] for s_atom in theory_atoms]
 
+    # theory_literals = [atom_map[s_atom] for s_atom in theory_atoms]
     # print("size: {}".format(len(theory_literals)))
 
     string_formula = string_formula.replace(" | (", " | ") \
@@ -79,12 +94,16 @@ def is_sat(formula):
             is_prop_abstraction_sat = solver.solve()
             if is_prop_abstraction_sat:
                 model = solver.get_model()
+                ucore = get_ucore(formula, atom_map, theory_atoms, model)
+
                 # t_model = list(filter(lambda l: abs(l) in theory_literals, model))
                 # print("prop assignment: {}".format(t_model))
-                if is_theory_sat(formula, atom_map, theory_atoms, model):
+                # print("ucore: {}".format(ucore))
+
+                if len(ucore) == 0:
                     break
                 else:
-                    invalid_model_blocking_clause = [(-1) * l for l in model]
+                    invalid_model_blocking_clause = [(-1) * l for l in ucore]
                     clauses.append(invalid_model_blocking_clause)
 
     return is_prop_abstraction_sat

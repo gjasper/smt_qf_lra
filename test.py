@@ -12,13 +12,6 @@ def run(file_path):
 
 def test_samples():
 
-    if 'CVC5_BIN_PATH' not in os.environ:
-        raise Exception('CVC5_BIN_PATH envvar not defined')
-
-    get_env().factory.add_generic_solver("cvc5", \
-                                    os.environ['CVC5_BIN_PATH'], \
-                                [QF_LRA])
-
     assert run('problems/QF_LRA_examples/Arthan1A-chunk-0015.smt2') == 'sat'
     assert run('problems/QF_LRA_examples/asin-8-chunk-0030.smt2') == 'sat'
     assert run('problems/QF_LRA_examples/asin-8-vars4-chunk-0022.smt2') == 'unsat'
