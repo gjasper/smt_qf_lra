@@ -1,7 +1,8 @@
 requirements:
     python3
+    cvc5
     z3
-    z3 path set on PYTHONPATH env variable
+    z3 path set on the PYTHONPATH env variable
         e.g.: 'export PYTHONPATH=<z3_path>/bin/python'
 
 run "make" to install dependencies
